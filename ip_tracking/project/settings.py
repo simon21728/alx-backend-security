@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_ratelimit',
     'ip_tracking',
     
 ]
@@ -83,6 +85,14 @@ DATABASES = {
 }
 
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+    }
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -123,3 +133,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Rate limiting settings
+RATELIMIT_USE_CACHE = 'default'  # uses your default cache
+RATELIMIT_ENABLE = True
+
+# Default limits (if you want central config)
+RATELIMIT_AUTHENTICATED = '10/m'   # 10 requests per minute
+RATELIMIT_ANONYMOUS = '5/m'        # 5 requests per minute
