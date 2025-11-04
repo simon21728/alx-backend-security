@@ -3,6 +3,14 @@ from django.db import models
 # Create your models here.
 # ip_tracking/models.py
 
+class SuspiciousIP(models.Model):
+    ip_address = models.GenericIPAddressField(unique=True)
+    reason = models.TextField()
+    flagged_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.ip_address} - {self.reason}"
+
 class RequestLog(models.Model):
     ip_address = models.GenericIPAddressField()
     timestamp = models.DateTimeField(auto_now_add=True)
