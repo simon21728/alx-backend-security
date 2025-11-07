@@ -5,7 +5,7 @@ import django
 from celery import Celery
 
 # 1. Set default Django settings module
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")  # <-- change if your settings module is different
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ip_tracking.settings")  # <-- change if your settings module is different
 
 # 2. Initialize Django
 django.setup()
