@@ -4,7 +4,7 @@ from datetime import timedelta
 from ip_tracking.models import SuspiciousIP
 from django.db.models import Count
 from django.conf import settings
-from myapp.models import RequestLog  # Replace with your actual model logging requests
+from ip_tracking.models import RequestLog  # Replace with your actual model logging requests
 
 @shared_task
 def detect_suspicious_ips():

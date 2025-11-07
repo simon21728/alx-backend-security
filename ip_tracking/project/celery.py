@@ -1,19 +1,20 @@
+# ip_tracking/celery.py
 
-from __future__ import absolute_import, unicode_literals
 import os
+import django
 from celery import Celery
-from celery.schedules import crontab
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'alx_backend_security.settings')
+# 1. Set default Django settings module
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")  # <-- change if your settings module is different
 
-app = Celery('alx_backend_security')
-app.config_from_object('django.conf:settings', namespace='CELERY')
+# 2. Initialize Django
+django.setup()
+
+# 3. Create Celery app
+app = Celery("ip_tracking")
+
+# 4. Configure Celery to use Django settings with CELERY namespace
+app.config_from_object("django.conf:settings", namespace="CELERY")
+
+# 5. Auto-discover tasks from all installed apps
 app.autodiscover_tasks()
-
-# Schedule your task
-app.conf.beat_schedule = {
-    'detect-suspicious-ips-hourly': {
-        'task': 'ip_tracking.tasks.detect_suspicious_ips',
-        'schedule': crontab(minute=0, hour='*'),  # Runs every hour
-    },
-}
