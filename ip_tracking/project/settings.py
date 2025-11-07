@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_ratelimit',
+    
     'ip_tracking',
+    'django_celery_results',
+    'django_ratelimit',
     
 ]
 
@@ -82,8 +84,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        
     }
 }
+
+# Celery configuration
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+CELERY_RESULT_BACKEND = 'django-db'   # Store results in Django database
+CELERY_CACHE_BACKEND = 'default'      # Optional: use Django cache
 
 
 CACHES = {
